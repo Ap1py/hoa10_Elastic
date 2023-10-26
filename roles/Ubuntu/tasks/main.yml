@@ -1,0 +1,36 @@
+---
+- name: Install necessary prerequisites
+  apt:
+    name:
+      - default-jre
+      - apt-transport-https
+      - curl
+      - software-properties-common
+    state: latest
+  become: yes
+
+- name: Add Elasticsearch GPG key
+  apt_key:
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+  become: yes
+
+- name: Add Elasticsearch APT repository
+  apt_repository:
+    repo: "deb https://artifacts.elastic.co/packages/7.x/apt stable main"
+    state: present
+  become: yes
+
+- name: Install Elasticsearch
+  apt:
+    name: elasticsearch
+    state: latest
+
+- name: Install Kibana
+  apt:
+    name: kibana
+    state: latest
+
+- name: Install Logstash
+  apt:
+    name: logstash
+    state: latest
